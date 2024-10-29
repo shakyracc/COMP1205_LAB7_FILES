@@ -1,5 +1,7 @@
 from pathlib import Path
-import os
+import time
+
+timeNow = time.strftime("%H:%M:%S").replace(':','_')
 
 madLibsFile = open('madlibs.txt')
 madLibsFileContent = madLibsFile.read()
@@ -27,14 +29,18 @@ for i in madLibsFileContentString:
         else:
             madLibsFileContentString[j] = firstNoun
             isSecondNoun = True
-
-        print(madLibsFileContentString)
         continue
     elif i == "VERB.":
         madLibsFileContentString[j] = verb + "."
-        print(madLibsFileContentString)
         continue
 
 print(" ".join(madLibsFileContentString))
 
+# using time to always create a new file with unique file name
+newMadLibsFile = open(f'new_mad_libs_{timeNow}.txt','x')
+
+newMadLibsFile.write(" ".join(madLibsFileContentString))
+
+newMadLibsFile.close()
+madLibsFile.close()
 
